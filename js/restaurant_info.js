@@ -56,7 +56,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
+  image.className = 'restaurant-img';
   image.alt = 'Restaurant ' + restaurant.name + ' Image';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
@@ -118,32 +118,32 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const div_main = document.createElement('div');
-  const div_up = document.createElement('div');
-  const div_down = document.createElement('div');
-  div_main.appendChild(up);
-  div_up.classList.add("ReviewUpperDiv");
-  div_main.appendChild(down);
-  down.classList.add("ReviewLowerDiv");
+  const div_info = document.createElement('div');
+  const div_rating = document.createElement('div');
+  div_main.appendChild(div_info);
+  div_info.classList.add("ReviewInfoDiv");
+  div_main.appendChild(div_rating);
+  div_rating.classList.add("ReviewRatingDiv");
   const name = document.createElement('h3');
   name.innerHTML = review.name;
-  div_up.appendChild(name);
+  div_info.appendChild(name);
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
-  div_up.appendChild(date);
+  div_info.appendChild(date);
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
   rating.classList.add("ReviewRating");
 
-  div_down.appendChild(rating);
+  div_rating.appendChild(rating);
 
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
 
-  div_down.appendChild(comments);
+  div_rating.appendChild(comments);
 
-  return li;
+  return div_main;
 }
 
 /**
