@@ -4,8 +4,8 @@
 <head>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Restaurant Reviews</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 </head>
 
 <body>
@@ -39,7 +39,7 @@
 
 
   <footer id="footer">
-    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017 <a href="/" role="link" tabindex="0"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
 
 </body>
