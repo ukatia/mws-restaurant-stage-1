@@ -36,12 +36,13 @@ self.addEventListener('activate', function (event) {
        );
    });
 
-
-  self.addEventListener('fetch', (event) => {
+/* ------------ FETCH EVENT ------------ */
+self.addEventListener('fetch', (event) => {
+    // console.log(event.request);
     event.respondWith(
         caches.match(event.request).then(response => {
            if (response) {
-               console.log('Found ', event.request.url, ' in cache');
+               console.log('Found URL ', event.request.url, ' in cache');
                return response;
            }
            console.log('Network request for ', event.request.url);
@@ -52,17 +53,15 @@ self.addEventListener('activate', function (event) {
                }
                return caches.open(staticCacheName).then(cache => {
                    cache.put(event.request.url, networkResponse.clone());
-                   console.log('We have fetched and cached', event.request.url);
                    return networkResponse;
                })
            })
        }).catch(error => {
-           console.log('Error, ', error);
+           console.log('Error: ', error);
            return;
         })
     );
 });
-
 
 self.addEventListener('message', (event) => {
    if (event.data.action === 'skipWaiting') {

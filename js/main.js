@@ -8,6 +8,9 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  // start service worker
+  startServiceWorker();
+  // fetch data
   fetchNeighborhoods();
   fetchCuisines();
 });
@@ -140,8 +143,15 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.alt = restaurant.name + " Restaurant";
+ if (!restaurant.photograph) {
+    image.src = "/img/undefined.webp";
+    image.alt = "Image of the restaurant " + restaurant.name + " was not found.";
+    image.style = "background-color: transparent;";
+  } else {
+    image.src = DBHelper.responsiveImageUrlForRestaurant(restaurant.photograph, "1x");
+    image.alt = "Image of the restaurant" + restaurant.name;
+    image.srcset = DBHelper.generateSrcSet(restaurant);
+  }
   li.append(image);
 
   const name = document.createElement('h2');
@@ -171,6 +181,10 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
+    // Google Maps Lighthouse Accesibility issue workaround
+    google.maps.event.addListenerOnce(map, 'idle', () => {
+      document.getElementsByTagName('iframe')[0].title = "Google Maps";
+    });
     google.maps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url
     });
@@ -181,12 +195,14 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 /**
  * Register service worker. 
  */
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('js/sw.js')
-  .then(function() {
-    console.log("Service Worker Registered");
-  })
-  .catch(function(err) {
-    console.log("Service Worker Error ", err);
-  });
+function startServiceWorker() {
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('js/sw.js')
+    .then(function() {
+      console.log("Service Worker Registered");
+    })
+    .catch(function(err) {
+      console.log("Service Worker Error ", err);
+    });
+  }
 }

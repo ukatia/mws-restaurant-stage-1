@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <meta charset="UTF-8">
+  <meta name="theme-color" content="#132351"/>
+  <meta name="description" content="Udacity MWS Restaurant Project">
   <title>Restaurant Reviews</title>
 </head>
 
@@ -36,7 +39,11 @@
 
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>
+  <script type="application/javascript" src="js/idb.js"></script>
+    <!-- Service Worker -->
+    <script type="text/javascript" src="js/sw_registration.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA657C7_s9cl3eWiKQWDeDEVenuQBMfSN0&libraries=places&callback=initMap"></script>
+  <!--<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap"></script>-->
 
 
   <footer id="footer">
